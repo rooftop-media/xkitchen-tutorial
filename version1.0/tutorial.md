@@ -133,57 +133,22 @@ Let's parse this data: <h1>Hello world!</h1>
 
 
 
-<h3 id="a-4">  ☑️ Step 4.  Basic  request response in <code>server.js</code> </h3>
+<h3 id="a-4">  ☑️ Step 4.  Edit the <code>xkitchen.js</code> constructor  </h3>
 
-Now, we'll set up a function to respond to http requests.  
+Back in `/xkitchen.js`, edit the constructor.  We want it to accept an object.
 
 ```javascript
-////  SECTION 2: Request response.
 
-//  This function will fire upon every request to our server.
-function server_request(req, res) {
-  var url = req.url;
-  console.log(`\x1b[36m >\x1b[0m New ${req.method} request: \x1b[34m${url}\x1b[0m`);
-
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  var main_page = fs.readFileSync(__dirname + '/../pages/index.html');
-  res.write(main_page);
-  res.end();
-
-}
 ```
 
-This will respond to all requests with the HTML of our page, `index.html`.  
-This is a simple, temporary solution.
 
-*Note that the strange parts of text in that console.log statement (\x1b\[36m, for example) are [ANSI codes](https://en.wikipedia.org/wiki/ANSI_escape_code#Colors), for coloring terminal text!*
 
 <br/><br/><br/><br/>
 
 
 
-<h3 id="a-5">  ☑️ Step 5.  Boot sequence for <code>server.js</code> </h3>
+<h3 id="a-5">  ☑️ Step 5.  </h3>
 
-Here's a function that will run when the server is first started.  
-It listens for HTTP requests, and calls our `server_request` function when they happen.  
-It also logs a message when the program starts, and when it finishes.
-```javascript
-////  SECTION 4: Boot.
-
-console.log("\x1b[32m >\x1b[0m Starting the rooftop server, at \x1b[36mlocalhost:8080\x1b[0m !");
-
-//  Creating the server!
-var server = http.createServer(
-  server_request
-);
-server.on('close', () => {
-  console.log("\x1b[31m >\x1b[0m Shutting down server. Bye!")
-})
-process.on('SIGINT', function() {
-  server.close();
-});
-server.listen(8080);
-```
 
 <br/><br/><br/><br/>
 
@@ -191,282 +156,28 @@ server.listen(8080);
 
 <h3 id="a-6"> ☑️ Step 6. ☞  Test the code!  </h3>
 
-In the `/server/` folder, run `node server.js` to start the server.  
-You should see the boot message appear in your terminal.  
 
-Now, open a browser and go to `localhost:8080`.  
-You should see `index.html` rendered on the page!  
-
-Finally, back in the terminal, stop the server by pressing `ctrl-c`.  
-You should see the exit message. 
 
 <br/><br/><br/><br/>
 
 
 
-<h3 id="a-7">  ☑️ Step 7:  Add image and font assets to <code>/assets/</code> </h3>
-
-Up next, we're going to make sure our server properly loads non-HTML assets, like images, fonts, and other files. 
-
-In `/rooftop-media.org/`, create a folder called `/assets/`, and add the following files:
-
-`/assets`
- - [`/favicons`](https://github.com/rooftop-media/rooftop-media.org-tutorial/tree/main/version1.0/part_A/assets/favicons)
-   - `/apple-touch-icon.png`
-   - `/favicon-16x16.png`
-   - `/favicon-32x32.png`
-   - `/site.webmanifest`
- - [`/fonts`](https://github.com/rooftop-media/rooftop-media.org-tutorial/tree/main/version1.0/part_A/assets/fonts)
-   - `/CrimsonText-Regular.ttf`
- - [`/icons`](https://github.com/rooftop-media/rooftop-media.org-tutorial/tree/main/version1.0/part_A/assets/icons)
-   - `/check.svg`
- - [`/landing`](https://github.com/rooftop-media/rooftop-media.org-tutorial/tree/main/version1.0/part_A/assets/landing)
-   - `/clock_parts.svg`
-   - `/raised_fist.svg`
-   - `/path_signs.svg`
- - [`/logo.png`](https://github.com/rooftop-media/rooftop-media.org-tutorial/blob/main/version1.0/part_A/assets/logo.png)
+<h3 id="a-7">  ☑️ Step 7:   </h3>
 
 
-I made the logo and images for the landing page, and the icon, in a vector image editor (Affinity Designer).  
-I generated the favicons by uploading the logo to a [favicon generator](https://favicon.io/) website.  
-I downloaded the font from [Google Fonts](https://fonts.google.com/specimen/Crimson+Text/about) -- after checking the license to make sure I could use it!
 
 <br/><br/><br/><br/>
 
 
 
-<h3 id="a-8">  ☑️ Step 8:  Add <code>index.js</code> and <code>index.css</code>to <code>/pages/</code> </h3>
+<h3 id="a-8">  ☑️ Step 8:   </h3>
 
-Next, we'll add two files to our `/pages/` directory.
-
-First, create `/pages/index.css`, and add this:
-```css
-@font-face {
-  font-family: CrimsonText;
-  src: url(/assets/fonts/CrimsonText-Regular.ttf),
-       url('/assets/fonts/crimsontext-regular-webfont.woff2') format('woff2'), /* Super Modern Browsers */
-       url('/assets/fonts/crimsontext-regular-webfont.woff') format('woff'), /* Pretty Modern Browsers */
-       url('/assets/fonts/CrimsonText-Regular.ttf') format('truetype'),
-       Times New Roman, serif; /* Safari, Android, iOS */
-}
-
-:root {
-    --spacer: 20px;
-    --black: #000000; --darkest-brown: #0E0907; --darker-brown: #1A110D; --dark-brown: #2E1F17;
-    --brown: #432D21; --light-brown: #533E2E; --lighter-brown: #604836;
-    --action-brown: #7F4C34;
-    --yellow: #E3D78F;
-    --green: #3A7B64;
-    --red: #832A28;
-}
-
-html, body {
-  font-family: CrimsonText;
-  margin: 0;
-  min-height: 100vh;
-  background: var(--darker-brown);
-  color: white;
-}
-
-/* The header, including the RTM logo and user profile buttons  */
-#header {
-    width:           100%;
-    height:          105px;
-    align-items:     center;
-    justify-content: space-between;
-    display:         flex;
-    background:      var(--dark-brown);
-    box-shadow:      0px 0px 10px rgba(0,0,0,.5);
-    padding:         10px 25px;
-    box-sizing:      border-box;
-    z-index:         10;
-    position:        relative;
-}
-
-#logo {
-    width:           100px;
-    margin-top:      15px;
-    margin-bottom:   25px;
-    cursor:          pointer;
-}
-
-#user-buttons {
-    display: flex;
-}
-#user-buttons button {
-    margin-left: 10px;
-    padding: 5px 20px;
-    cursor: pointer;
-}
-
-/*  Global styles  */
-h1 {
-  text-align: center;
-}
-
-a {
-  color: var(--yellow);
-}
-
-input, textarea {
-  background: var(--darkest-brown);
-  color: white;
-  border: solid 1px black;
-}
-input:focus, textarea:focus {
-  outline: solid 1px var(--yellow);
-}
-
-input[type="checkbox"] {
-  width: 30px;
-  height: 30px;
-  appearance: none;
-  background: var(--action-brown);
-  border-radius: 5px;
-  cursor: pointer;
-}
-input[type="checkbox"]:checked::after {
-  content: '';
-  display: block;
-  background-size: 80%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url(/assets/icons/check.svg);
-  width: 30px;
-  height: 30px;
-}
-input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  appearance: none;
-  background: var(--action-brown);
-  border-radius: 50%;
-  cursor: pointer;
-}
-input[type="radio"]:checked {
-  border-color: var(--yellow);
-}
-input[type="radio"]:checked::after {
-  content: '';
-  display: block;
-  background: var(--yellow);
-  width: 10px;
-  height: 10px;
-  margin: 4px;
-  border-radius: 50%;
-}
-
-pre {
-  border: solid 1px var(--brown);
-  width: 100%;
-  white-space: pre-wrap;
-  text-indent: 0px;
-  background: var(--darkest-brown);
-}
-
-button {
-  padding: 10px 20px;
-  border-radius: 5px;
-  background: var(--action-brown);
-  color: var(--yellow);
-  border: 1px solid var(--brown);
-  cursor: pointer;
-}
-button:hover {
-  filter: brightness(1.1);
-}
-button:active {
-  filter: brightness(0.9);
-}
-
-hr {
-  border-color: var(--yellow);
-}
-
-table, th, td {
-  border: solid 1px var(--brown);
-  border-collapse: collapse;
-}
-table {
-  box-shadow: 2px 2px 10px rgba(0,0,0,.5);
-}
-th, td {
-  padding: 5px 10px;
-}
-th {
-  background: var(--brown);
-}
-tr {
-  background: var(--lighter-brown);
-}
-tr:nth-child(even) {
-  background: var(--light-brown);
-}
-
-.px-1 {
-    padding-left: calc(var(--spacer) * 0.25);
-    padding-right: calc(var(--spacer) * 0.25);
-}
-.px-2 {
-    padding-left: calc(var(--spacer) * 0.5);
-    padding-right: calc(var(--spacer) * 0.5);
-}
-.px-3 {
-    padding-left: var(--spacer);
-    padding-right: var(--spacer);
-}
-.p-3 {
-    padding: var(--spacer);
-}
-
-.center-column {
-    max-width: 800px;
-    margin: 0 auto;
-}
-```
-
-Then, create `/pages/index.js`, and add this:
-```javascript
-console.log("Welcome to Rooftop Media Dot Org!");
-```
 
 <br/><br/><br/><br/>
 
 
 
 <h3 id="a-9">  ☑️ Step 9:  Add external files to <code>/pages/index.html</code> </h3>
-
-Now, we'll edit `index.html` again, to use those other files.  
-We'll add an image, a favicon, a CSS file, and a JS file. 
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>&#x2756;  Rooftop Media &#x2756;</title>
-    <meta charset="utf-8">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/assets/favicons/site.webmanifest">
-    
-    <link rel="stylesheet" href="/pages/index.css">
-    <script src="/pages/index.js"></script>
-  </head>
-  <body>
-    <div id="header">
-      <img id="logo" src="/assets/logo.png" alt="Rooftop Media's logo!">
-    </div>
-    <div id="content">
-      <h1>Welcome!</h1>
-    </div>
-  </body>
-</html>
-```
-
-Opening the file manually won't load our new assets properly, because we didn't use relative file paths.  
-Running the server also won't load our new assets properly *yet*.  We'll set that up next. 
 
 
 <br/><br/><br/><br/>
@@ -475,72 +186,7 @@ Running the server also won't load our new assets properly *yet*.  We'll set tha
 
 <h3 id="a-10">  ☑️ Step 10:  Editing the request response in <code>/server/server.js</code> </h3>
 
-In our request response section, we'll add a dictionary of [mime types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types).  
-Then, in our response function, we'll respond with index.html, an asset, or a 404 message.
 
-```javascript
-////  SECTION 2: Request response.
-
-//  This dictionary of media types (MIME types) will be used in the server func.
-var mimeTypes = {
-  '.html': 'text/html',
-  '.js': 'text/javascript',
-  '.css': 'text/css',
-  '.json': 'application/json',
-  '.png': 'image/png',
-  '.jpg': 'image/jpg',
-  '.gif': 'image/gif',
-  '.svg': 'image/svg+xml',
-  '.wav': 'audio/wav',
-  '.mp4': 'video/mp4',
-  '.woff': 'application/font-woff',
-  '.ttf': 'application/font-ttf',
-  '.eot': 'application/vnd.ms-fontobject',
-  '.otf': 'application/font-otf',
-  '.wasm': 'application/wasm'
-};
-
-//  This function will fire upon every request to our server.
-function server_request(req, res) {
-  var url = req.url;
-  console.log(`\x1b[36m >\x1b[0m New ${req.method} request: \x1b[34m${url}\x1b[0m`);
-  var extname = String(path.extname(url)).toLowerCase();
-
-  if (extname.length == 0) {                   /*  No extension? Respond with index.html.  */
-    respond_with_a_page(res, url);
-  } else {    /*  Extension, like .png, .css, .js, etc? If found, respond with the asset.  */
-    respond_with_asset(res, url, extname);
-  }
-
-}
-
-function respond_with_a_page(res, url) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  var main_page = fs.readFileSync(__dirname + '/../pages/index.html');
-  res.write(main_page);
-  res.end();
-}
-
-function respond_with_asset(res, url, extname) {
-  fs.readFile( __dirname + '/..' + url, function(error, content) {
-    if (error) {
-      if(error.code == 'ENOENT') {
-        res.writeHead(404, { 'Content-Type': 'text/html' });
-        res.end('404 -- asset not found', 'utf-8');
-      }
-      else {
-        res.writeHead(500);
-        res.end(`Sorry, check with the site admin for error: ${error.code} ..\n`);
-      }
-    } else {
-      var contentType = mimeTypes[extname] || 'application/octet-stream';
-      res.writeHead(200, { 'Content-Type': contentType });
-      res.end(content, 'utf-8');
-    }
-  });
-}
-
-```
 
 <br/><br/><br/><br/>
 
@@ -548,20 +194,7 @@ function respond_with_asset(res, url, extname) {
 
 <h3 id="a-11"> ☑️ Step 11. ☞  Test the code!  </h3>
 
-In the `/server/` folder, run `node server.js` to start the server, and then open `localhost:8080`.  
 
-Our page should now be loaded with the logo .png, a favicon, and css styling!  
-Open the developer console -- the javascript script should have logged our welcome message there.  
-
-In the developer tools side bar, the "networking" section should have info about all the files we recieved. 
-
-<br/>
-
-We can also test what happens when we request a file that doesn't exist.  
-In `/pages/index.html` change the img tag's source to: 
-`<img id="logo" src="/assets/notlogo.png" alt="Rooftop Media's logo!">`  
-Reload the website.  The logo should be missing, and in our networking tab, we should see the 404 message.  
-Change the logo source back to the correct value before moving on. 
 
 <br/><br/><br/><br/>
 
