@@ -49,92 +49,84 @@ Proposals...
 
 
 
-<h2 id="part-a" align="center">  Part A:  Defining our example </h2>
+<h2 id="part-a" align="center">  Part A: Library set up and format definitions  </h2>
 
-The steps in Part A will culminate in us serving a website with static pages, including:
-  - a landing page
-  - a register page
-  - a login page
+In this part, we'll connect our library to our test file.  
+We'll also provide tools to:
+ - Define data formats for our xkitchen.
+ - Add data to our xkitchen, and ensure it matches the defined format. 
 
-*Estimated time: 15 minutes*
+*Estimated time: ? minutes*
 
 <br/><br/><br/><br/>
 
 
 
-<h3 id="a-1">  ☑️ Step 1:  Create a homepage at <code>/pages/index.html</code> </h3>
+<h3 id="a-1">  ☑️ Step 1:  Create <code>/xkitchen.js</code> </h3>
 
-Create a new folder in the `/rooftop-media.org/` folder, called `/pages/`.  
-This is where we'll put the code for our website's pages. 
+In the base directory of `/xkitchen/` folder, create a file `/xkitchen.js`.  
+This is where we'll put the code for our library.
 
-Inside the new folder, make a file called `index.html`.  
+```js
+//   Defining the XKitchen class: 
+module.exports = class ParseTools {
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>&#x2756;  Rooftop Media &#x2756;</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <div id="header">
-      
-    </div>
-    <div id="content">
-      <h1>Welcome!</h1>
-    </div>
-  </body>
-</html>
+  //  ====  CONSTRUCTOR
+  //  Called using this syntax: new xkitchen()
+  constructor() {
+    console.log("Successfully created an xkitchen instance!");
+    this.data = '<h1>Hello world!</h1>'
+  }
+  
+
+  //  ====  METHODS
+  test() {
+    console.log(`Let's parse this data: ` + this.data);
+  }
+
+}
 
 ```
 
-In the `<head>` tag, we describe the page's title, and the character encoding for the page.  
-*Note that the text \&#x2756; is how we tell HTML to render this unicode symbol: &#x2756;. I just think it looks nice.*
-
-In the `<body>`, we've added a divider that will become our header, and some text as the page's content.  
-
-Open the html file in a browser to make sure it shows the content correctly.
-
 <br/><br/><br/><br/>
 
 
 
-<h3 id="a-2">  ☑️ Step 2.  Outlining <code>server.js</code> </h3>
+<h3 id="a-2">  ☑️ Step 2.  Edit <code>test/basic_test.js</code> </h3>
 
-Let’s go into `server/server.js` and add some comments to plan our architecture.
-
-Delete the line of code, which was `console.log('Starting the rooftop-media.org server!');`.
-We’ll outline 4 sections. Here’s what we’ll write:
+In the setup for this tutorial, you should have made the file `tests/basic_test.js`.  
+Let's edit that file to use our library. 
 
 ```javascript
+//  basic_test.js
+//  This file tests the basic features of xkitchen. 
 
-////  SECTION 1: Imports.
+//  Importing the xkitchen library
+let xkitchen = require( __dirname + "/../xkitchen.js" );
 
-////  SECTION 2: Request response.
+let my_kitchen = new xkitchen();
 
-////  SECTION 3: API.
-
-////  SECTION 4: Boot.
+my_kitchen.test();
 
 ```
 
-We’ll reference these 4 sections throughout the rest of this version.
-
 <br/><br/><br/><br/>
 
 
 
-<h3 id="a-3">  ☑️ Step 3.  Imports in <code>server.js</code> </h3>
+<h3 id="a-3">  ☑️ Step 3.  ☞  Test the code! </h3>
 
-We’ll import three standard libraries from NodeJS. 
+Run `/tests/basic_test.js` with NodeJS. If you're still in the `/tests` folder, just run:
 
-```javascript
-////  SECTION 1: Imports.
+```bash
+node ./basic_test.js
+```
 
-//  Importing NodeJS libraries.
-var http = require('http');  // listen to HTTP requests
-var path = require('path');  // manage filepath names
-var fs   = require('fs');    // access files on the server
+You should see the following output:
+
+```
+Successfully created an xkitchen instance!
+Let's parse this data: <h1>Hello world!</h1>
 ```
 
 <br/><br/><br/><br/>
