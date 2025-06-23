@@ -5,14 +5,11 @@ The library also deals with some [lexical analysis](https://en.wikipedia.org/wik
 
 You'll also need a basic understanding of some terms involved in computer programming, and command line use.
 
-To follow this tutorial, you'll also need to have [NodeJS](https://nodejs.org/en/) installed on a computer.  
-NodeJS lets you use Javascript outside of the web browser, to interact with our computer's files and text terminal, instead of browser pages.
+To follow this tutorial, you'll also need to have [c++]([https://nodejs.org/en/](https://en.wikipedia.org/wiki/C%2B%2B)) installed on a computer.  
+C++ is a low level programming language.
 
-NodeJS has some [nice documentation](https://nodejs.org/en/docs/).  
-This code follows a NodeJS [style guide](https://github.com/felixge/node-style-guide) created by Felix Geisendörfer.  
- - Rules I sometimes break include:
-   - Always use single quotes for strings.
-   - Limit functions to 15-20 lines of code.
+c++ has some [nice documentation](https://cplusplus.com/).  
+<!--  style guide? -->
 
 <br/><br/><br/><br/>
 
