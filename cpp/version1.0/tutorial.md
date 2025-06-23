@@ -64,27 +64,12 @@ We'll also provide tools to:
 
 <h3 id="a-1">  ☑️ Step 1:  Create <code>/xkitchen.js</code> </h3>
 
-In the base directory of `/xkitchen/` folder, create a file `/xkitchen.js`.  
+In the base directory of `/xkitchen/` folder, create a file `/xkitchen.cpp`.  
 This is where we'll put the code for our library.
 
-```js
+```cpp
 //   Defining the XKitchen class: 
-module.exports = class ParseTools {
 
-  //  ====  CONSTRUCTOR
-  //  Called using this syntax: new xkitchen()
-  constructor() {
-    console.log("Successfully created an xkitchen instance!");
-    this.data = '<h1>Hello world!</h1>'
-  }
-  
-
-  //  ====  METHODS
-  test() {
-    console.log(`Let's parse this data: ` + this.data);
-  }
-
-}
 
 ```
 
